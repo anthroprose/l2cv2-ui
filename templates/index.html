@@ -11,7 +11,7 @@
 
     <style>
 
-      body {
+      body, .modal-body, .modal-header, .modal-footer {
 
         background-color: black;
         color: white;
@@ -33,31 +33,112 @@
 
     <div id="patternpicker">
 
+      <div class="row" id="bgcolor">
+        <div class="col-md-0 patternbox">
+          <div class="row">
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-2">Red:</div>
+            <div class="col-md-2"><input type="text" id="rgb_r" data-provide="slider" data-slider-min="1" data-slider-max="255" data-slider-step="1" data-slider-value="1" data-slider-tooltip="hide" data-slider-on/></div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-2">Green:</div>
+            <div class="col-md-2"><input type="text" id="rgb_g" data-provide="slider" data-slider-min="1" data-slider-max="255" data-slider-step="1" data-slider-value="1" data-slider-tooltip="hide" /></div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-2">Blue:</div>
+            <div class="col-md-2"><input type="text" id="rgb_b" data-provide="slider" data-slider-min="1" data-slider-max="255" data-slider-step="1" data-slider-value="1" data-slider-tooltip="hide" /></div>
+          </div>
+        </div>
+
+        <div class="col-md-0 patternbox">
+          <div class="row">
+            <div class="col-md-0">
+              <div id="colorpicker"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
       <div class="row">
         <div class="col-md-3 patternbox">
 
           <div class="patternpic">
-            <img class="center-block" style="margin-left:auto;margin-right:auto;width:100px !important;height:100px !important;" src="static/img/steamboat.jpg" />
-          </div>
-          <div class="patterndetail clearfix">
-            <div class="row">
-              <div class="col-md-2">Iterations:</div>
-              <div class="col-md-2"><input type="text" name="iterations" data-provide="slider" data-slider-min="1" data-slider-max="5" data-slider-step="1" data-slider-value="1" data-slider-tooltip="hide" ></div>
-            </div>
+            <img class="center-block" style="margin-left:auto;margin-right:auto;width:100px !important;height:100px !important;" src="static/img/steamboat.jpg" onclick="$('#patternModal').modal();" />
           </div>
 
         </div>
-        <div class="col-md-3 patternbox">.</div>
-        <div class="col-md-3 patternbox">.</div>
-        <div class="col-md-3 patternbox">.</div>
+
+        <div class="col-md-3 patternbox">
+          <div class="patternpic">
+            <img class="center-block" style="margin-left:auto;margin-right:auto;width:100px !important;height:100px !important;" src="static/img/steamboat.jpg" onclick="$('#patternModal').modal();" />
+          </div>
+        </div>
+
+        <div class="col-md-3 patternbox">
+          <div class="patternpic">
+            <img class="center-block" style="margin-left:auto;margin-right:auto;width:100px !important;height:100px !important;" src="static/img/steamboat.jpg" onclick="$('#patternModal').modal();" />
+          </div>
+        </div>
+
+        <div class="col-md-3 patternbox">
+          <div class="patternpic">
+            <img class="center-block" style="margin-left:auto;margin-right:auto;width:100px !important;height:100px !important;" src="static/img/steamboat.jpg" onclick="$('#patternModal').modal();" />
+          </div>
+        </div>
+
       </div>
 
     </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="patternModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Pattern</h4>
+          </div>
+          <div class="modal-body">
+            <div class="patternpic">
+              <img class="center-block" style="margin-left:auto;margin-right:auto;width:100px !important;height:100px !important;" src="static/img/steamboat.jpg" />
+            </div>
+            <div class="patterndetail clearfix">
+              <div class="row">
+                <div class="col-md-2">Iterations:</div>
+                <div class="col-md-2"><input type="text" name="iterations" data-provide="slider" data-slider-min="1" data-slider-max="5" data-slider-step="1" data-slider-value="1" data-slider-tooltip="hide" ></div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Run Pattern</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="static/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="static/js/bootstrap.min.js"></script>
     <script src="static/js/bootstrap-slider.min.js"></script>
+
+    <script>
+
+      $( document ).ready(function() {
+
+        var RGBChange = function() {
+      	   $('#bgcolor').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')
+        };
+
+        var r = $('#rgb_r').slider().on('slide', RGBChange).data('slider');
+        var g = $('#rgb_g').slider().on('slide', RGBChange).data('slider');
+        var b = $('#rgb_b').slider().on('slide', RGBChange).data('slider');
+
+      });
+
+    </script>
   </body>
 </html>

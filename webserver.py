@@ -41,6 +41,20 @@ def set_color(i,r,g,b):
 
     return json.dumps(i,r,g,b)
 
+def send_command(instring):
+
+    try:
+
+        pprint(str(instring))
+        ser.write(str(instring))
+
+    except Exception as e:
+        pprint("Unhandled Exception: " + e.reason)
+
+    except:
+        pprint("Unhandled Exception: " + str(sys.exc_info()))
+
+    return json.dumps(instring)
 
 if __name__ == "__main__":
 
@@ -48,6 +62,10 @@ if __name__ == "__main__":
 
     app = Flask(__name__)
     app.config.from_object(__name__)
+
+    @app.route('/send_command/')
+    def send_command_handler():
+        return send_command(request.args.get('instring', ''))
 
     @app.route('/colors/')
     def set_colors_handler():

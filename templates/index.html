@@ -33,30 +33,29 @@
 
     <div id="patternpicker">
 
-      <div class="row" id="bgcolor">
-        <div class="col-md-0 patternbox">
-          <div class="row">
-            <div class="col-md-2">&nbsp;</div>
-            <div class="col-md-2">Red:</div>
-            <div class="col-md-2"><input type="text" id="rgb_r" data-provide="slider" data-slider-min="1" data-slider-max="255" data-slider-step="1" data-slider-value="1" data-slider-tooltip="hide" data-slider-on/></div>
-          </div>
-          <div class="row">
-            <div class="col-md-2">&nbsp;</div>
-            <div class="col-md-2">Green:</div>
-            <div class="col-md-2"><input type="text" id="rgb_g" data-provide="slider" data-slider-min="1" data-slider-max="255" data-slider-step="1" data-slider-value="1" data-slider-tooltip="hide" /></div>
-          </div>
-          <div class="row">
-            <div class="col-md-2">&nbsp;</div>
-            <div class="col-md-2">Blue:</div>
-            <div class="col-md-2"><input type="text" id="rgb_b" data-provide="slider" data-slider-min="1" data-slider-max="255" data-slider-step="1" data-slider-value="1" data-slider-tooltip="hide" /></div>
+      <div class="row">
+
+        <div class="col-md-3 patternbox">
+          <div class="buttonbox">
+            <button type="button" class="btn btn-primary" onclick="$('#waitModal').modal();">Wait</button>
           </div>
         </div>
 
-        <div class="col-md-0 patternbox">
-          <div class="row">
-            <div class="col-md-0">
-              <div id="colorpicker"></div>
-            </div>
+        <div class="col-md-3 buttonrow">
+          <div class="buttonbox">
+            <button type="button" class="btn btn-primary" onclick="$('#foregroundModal').modal();">Foreground Color</button>
+          </div>
+        </div>
+
+        <div class="col-md-3 patternbox">
+          <div class="buttonbox">
+            <button type="button" class="btn btn-primary" onclick="$('#patternModal').modal();">Background Color</button>
+          </div>
+        </div>
+
+        <div class="col-md-3 patternbox">
+          <div class="buttonbox">
+            <button type="button" class="btn btn-primary" onclick="$('#patternModal').modal();">Foreground Color 2</button>
           </div>
         </div>
 
@@ -93,27 +92,83 @@
 
     </div>
 
-    <div class="modal fade" tabindex="-1" role="dialog" id="patternModal">
+    <!-- Wait Modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="waitModal">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Pattern</h4>
+            <h4 class="modal-title">Wait</h4>
           </div>
           <div class="modal-body">
-            <div class="patternpic">
-              <img class="center-block" style="margin-left:auto;margin-right:auto;width:100px !important;height:100px !important;" src="static/img/steamboat.jpg" />
-            </div>
-            <div class="patterndetail clearfix">
-              <div class="row">
-                <div class="col-md-2">Iterations:</div>
-                <div class="col-md-2"><input type="text" name="iterations" data-provide="slider" data-slider-min="1" data-slider-max="5" data-slider-step="1" data-slider-value="1" data-slider-tooltip="hide" ></div>
+            <div class="row">
+              <div class="col-md-0 patternbox">
+                <div class="row">
+                  <div class="col-md-2">&nbsp;</div>
+                  <div class="col-md-2">Wait in MS:</div>
+                  <div class="col-md-2"><input type="text" id="wait_ms" data-provide="slider" data-slider-min="1" data-slider-max="1000" data-slider-step="1" data-slider-value="1" data-slider-tooltip="hide" data-slider-on/></div>
+                </div>
               </div>
+
+              <div class="col-md-0 patternbox">
+                <div class="row">
+                  <div class="col-md-0">
+                    <div id="colorpicker"></div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Run Pattern</button>
+            <button type="button" class="btn btn-primary">Run</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- ForeGround Modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="foregroundModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Foreground Color</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row" id="fgbgcolor">
+              <div class="col-md-0 patternbox">
+                <div class="row">
+                  <div class="col-md-2">&nbsp;</div>
+                  <div class="col-md-2">Red:</div>
+                  <div class="col-md-2"><input type="text" id="rgb_r" data-provide="slider" data-slider-min="1" data-slider-max="255" data-slider-step="1" data-slider-value="1" data-slider-tooltip="hide" data-slider-on/></div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">&nbsp;</div>
+                  <div class="col-md-2">Green:</div>
+                  <div class="col-md-2"><input type="text" id="rgb_g" data-provide="slider" data-slider-min="1" data-slider-max="255" data-slider-step="1" data-slider-value="1" data-slider-tooltip="hide" /></div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">&nbsp;</div>
+                  <div class="col-md-2">Blue:</div>
+                  <div class="col-md-2"><input type="text" id="rgb_b" data-provide="slider" data-slider-min="1" data-slider-max="255" data-slider-step="1" data-slider-value="1" data-slider-tooltip="hide" /></div>
+                </div>
+              </div>
+
+              <div class="col-md-0 patternbox">
+                <div class="row">
+                  <div class="col-md-0">
+                    <div id="colorpicker"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Run</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -130,7 +185,18 @@
       $( document ).ready(function() {
 
         var RGBChange = function() {
-      	   $('#bgcolor').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')
+      	   $('#fgbgcolor').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')
+
+           $.ajax({
+             url: '/send_command/',
+             dataType: 'json',
+             data: {'instring':'b ' + r.getValue()+' '+g.getValue()+' '+b.getValue()},
+             success: function(data) {
+
+             },
+          });
+
+
         };
 
         var r = $('#rgb_r').slider().on('slide', RGBChange).data('slider');

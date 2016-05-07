@@ -49,25 +49,52 @@
 
         <div class="col-md-3 patternbox">
           <div class="buttonbox">
-            <button type="button" class="btn btn-primary" onclick="$('#patternModal').modal();">Background Color</button>
+            <button type="button" class="btn btn-primary" onclick="$('#backgroundModal').modal();">Background Color</button>
           </div>
         </div>
 
         <div class="col-md-3 patternbox">
           <div class="buttonbox">
-            <button type="button" class="btn btn-primary" onclick="$('#patternModal').modal();">Foreground Color 2</button>
+            <button type="button" class="btn btn-primary" onclick="$('#Modal').modal();">Foreground Color 2</button>
           </div>
         </div>
 
       </div>
 
       <div class="row">
-        <div class="col-md-3 patternbox">
 
+        <div class="col-md-3 patternbox">
+          <div class="buttonbox">
+            <button type="button" class="btn btn-primary" onclick="$('#frequencyModal').modal();">Frequency</button>
+          </div>
+        </div>
+
+        <div class="col-md-3 buttonrow">
+          <div class="buttonbox">
+
+          </div>
+        </div>
+
+        <div class="col-md-3 patternbox">
+          <div class="buttonbox">
+
+          </div>
+        </div>
+
+        <div class="col-md-3 patternbox">
+          <div class="buttonbox">
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-3 patternbox">
           <div class="patternpic">
             <img class="center-block" style="margin-left:auto;margin-right:auto;width:100px !important;height:100px !important;" src="static/img/steamboat.jpg" onclick="$('#patternModal').modal();" />
           </div>
-
         </div>
 
         <div class="col-md-3 patternbox">
@@ -87,7 +114,6 @@
             <img class="center-block" style="margin-left:auto;margin-right:auto;width:100px !important;height:100px !important;" src="static/img/steamboat.jpg" onclick="$('#patternModal').modal();" />
           </div>
         </div>
-
       </div>
 
     </div>
@@ -174,6 +200,52 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
+    <!-- ForeGround Modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="backgroundModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Background Color</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row" id="bgbgcolor">
+              <div class="col-md-0 patternbox">
+                <div class="row">
+                  <div class="col-md-2">&nbsp;</div>
+                  <div class="col-md-2">Red:</div>
+                  <div class="col-md-2"><input type="text" id="bg_r" data-provide="slider" data-slider-min="1" data-slider-max="255" data-slider-step="1" data-slider-value="1" data-slider-tooltip="hide" data-slider-on/></div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">&nbsp;</div>
+                  <div class="col-md-2">Green:</div>
+                  <div class="col-md-2"><input type="text" id="bg_g" data-provide="slider" data-slider-min="1" data-slider-max="255" data-slider-step="1" data-slider-value="1" data-slider-tooltip="hide" /></div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">&nbsp;</div>
+                  <div class="col-md-2">Blue:</div>
+                  <div class="col-md-2"><input type="text" id="bg_b" data-provide="slider" data-slider-min="1" data-slider-max="255" data-slider-step="1" data-slider-value="1" data-slider-tooltip="hide" /></div>
+                </div>
+              </div>
+
+              <div class="col-md-0 patternbox">
+                <div class="row">
+                  <div class="col-md-0">
+                    <div id="colorpicker"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Run</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="static/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -184,13 +256,14 @@
 
       $( document ).ready(function() {
 
-        var RGBChange = function() {
-      	   $('#fgbgcolor').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')
+        // Foreground
+        var fgRGBChange = function() {
+      	   $('#fgbgcolor').css('background', 'rgb('+fg_r.getValue()+','+fg_g.getValue()+','+fg_b.getValue()+')')
 
            $.ajax({
              url: '/send_command/',
              dataType: 'json',
-             data: {'instring':'b ' + r.getValue()+' '+g.getValue()+' '+b.getValue()},
+             data: {'instring':'f ' + fg_r.getValue()+' '+fg_g.getValue()+' '+fg_b.getValue()},
              success: function(data) {
 
              },
@@ -199,9 +272,44 @@
 
         };
 
-        var r = $('#rgb_r').slider().on('slide', RGBChange).data('slider');
-        var g = $('#rgb_g').slider().on('slide', RGBChange).data('slider');
-        var b = $('#rgb_b').slider().on('slide', RGBChange).data('slider');
+        var fg_r = $('#rgb_r').slider().on('slideStop', fgRGBChange).data('slider');
+        var fg_g = $('#rgb_g').slider().on('slideStop', fgRGBChange).data('slider');
+        var fg_b = $('#rgb_b').slider().on('slideStop', fgRGBChange).data('slider');
+
+        // Background
+        var bgRGBChange = function() {
+      	   $('#bgbgcolor').css('background', 'rgb('+bg_r.getValue()+','+bg_g.getValue()+','+bg_b.getValue()+')')
+
+           $.ajax({
+             url: '/send_command/',
+             dataType: 'json',
+             data: {'instring':'b ' + bg_r.getValue()+' '+bg_g.getValue()+' '+bg_b.getValue()},
+             success: function(data) {
+
+             },
+          });
+
+        };
+
+        var bg_r = $('#bg_r').slider().on('slideStop', bgRGBChange).data('slider');
+        var bg_g = $('#bg_g').slider().on('slideStop', bgRGBChange).data('slider');
+        var bg_b = $('#bg_b').slider().on('slideStop', bgRGBChange).data('slider');
+
+        // Wait
+        var waitChange = function() {
+
+           $.ajax({
+             url: '/send_command/',
+             dataType: 'json',
+             data: {'instring':'w ' + wait_val.getValue()},
+             success: function(data) {
+
+             },
+          });
+
+        };
+
+        var wait_val = $('#wait_ms').slider().on('slideStop', waitChange).data('slider');
 
       });
 

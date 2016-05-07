@@ -46,7 +46,7 @@ def send_command(instring):
     try:
 
         pprint(str(instring))
-        ser.write(str(instring))
+        #ser.write(str(instring))
 
     except Exception as e:
         pprint("Unhandled Exception: " + e.reason)

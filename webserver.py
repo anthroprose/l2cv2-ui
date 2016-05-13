@@ -8,7 +8,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
-ttyusb = '/dev/ttyUSB0'
+ttyusb = '/dev/ttyS0'
 
 def set_colors(r,g,b):
 
@@ -46,7 +46,7 @@ def send_command(instring):
     try:
 
         pprint(str(instring))
-        #ser.write(str(instring))
+        ser.write(str(instring))
 
     except Exception as e:
         pprint("Unhandled Exception: " + e.reason)
@@ -56,9 +56,25 @@ def send_command(instring):
 
     return json.dumps(instring)
 
+def s(i):
+
+    try:
+
+        pprint(str(i))
+        ser.write(str(i))
+
+    except Exception as e:
+        pprint("Unhandled Exception: " + e.reason)
+
+    except:
+        pprint("Unhandled Exception: " + str(sys.exc_info()))
+
+    return json.dumps(i)
+
+
 if __name__ == "__main__":
 
-    #ser = serial.Serial(ttyusb, 57600, timeout=2)
+    ser = serial.Serial(ttyusb, 57600, timeout=2)
 
     app = Flask(__name__)
     app.config.from_object(__name__)
@@ -66,6 +82,10 @@ if __name__ == "__main__":
     @app.route('/send_command/')
     def send_command_handler():
         return send_command(request.args.get('instring', ''))
+
+    @app.route('/s/')
+    def s_handler():
+        return s(request.args.get('i', ''))
 
     @app.route('/colors/')
     def set_colors_handler():
@@ -78,6 +98,11 @@ if __name__ == "__main__":
     @app.route('/help')
     def help_handler():
         return render_template('help.html')
+
+    @app.route('/d')
+    def debug_handler():
+        return render_template('debug.html')
+
 
     @app.route('/')
     def index_handler():

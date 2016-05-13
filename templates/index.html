@@ -69,9 +69,9 @@
           </div>
         </div>
 
-        <div class="col-md-3 buttonrow">
+        <div class="col-md-3 patternbox">
           <div class="buttonbox">
-
+            <button type="button" class="btn btn-primary" onclick="$('#brightnessModal').modal();">Brightness</button>
           </div>
         </div>
 
@@ -200,7 +200,7 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-    <!-- ForeGround Modal -->
+    <!-- BackGround Modal -->
     <div class="modal fade" tabindex="-1" role="dialog" id="backgroundModal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -246,6 +246,42 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
+    <!-- Brightness Modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="brightnessModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Brightness</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-0 patternbox">
+                <div class="row">
+                  <div class="col-md-2">&nbsp;</div>
+                  <div class="col-md-2">Brightness:</div>
+                  <div class="col-md-2"><input type="text" id="brightness_ms" data-provide="slider" data-slider-min="5" data-slider-max="1000" data-slider-step="1" data-slider-value="1" data-slider-tooltip="hide" data-slider-on/></div>
+                </div>
+              </div>
+
+              <div class="col-md-0 patternbox">
+                <div class="row">
+                  <div class="col-md-0">
+                    <div id="colorpicker"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Run</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="static/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -268,7 +304,6 @@
 
              },
           });
-
 
         };
 
@@ -310,6 +345,22 @@
         };
 
         var wait_val = $('#wait_ms').slider().on('slideStop', waitChange).data('slider');
+
+        // Brightness
+        var brightnesChange = function() {
+
+           $.ajax({
+             url: '/s/',
+             dataType: 'json',
+             data: {'i':'w ' + brightness_val.getValue()},
+             success: function(data) {
+
+             },
+          });
+
+        };
+
+        var brightness_val = $('#brightness_ms').slider().on('slideStop', brightnessChange).data('slider');
 
       });
 

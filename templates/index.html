@@ -350,9 +350,9 @@
         var brightnesChange = function() {
 
            $.ajax({
-             url: '/s/',
+             url: '/send_command/',
              dataType: 'json',
-             data: {'i':'a ' + brightness_val.getValue()},
+             data: {'instring':'a ' + brightness_val.getValue()},
              success: function(data) {
 
              },

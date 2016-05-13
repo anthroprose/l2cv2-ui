@@ -37,7 +37,7 @@
 
         <div class="col-md-0 patternbox">
           <div class="patternpic">
-            <input type="text" id="debug" /> 
+            <input type="text" id="debug" /> <button type="button" class="btn btn-primary" onclick="debug();">Push</button>
           </div>
         </div>
 
@@ -59,7 +59,7 @@
         var brightnesChange = function() {
 
            $.ajax({
-             url: '/s/',
+             url: '/send_command/',
              dataType: 'json',
              data: {'i':'w ' + brightness_val.getValue()},
              success: function(data) {

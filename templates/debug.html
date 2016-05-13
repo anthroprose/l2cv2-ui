@@ -14,7 +14,7 @@
       body, .modal-body, .modal-header, .modal-footer {
 
         background-color: black;
-        color: white;
+        padding-left: 10px;
 
       }
 
@@ -37,7 +37,7 @@
 
         <div class="col-md-0 patternbox">
           <div class="patternpic">
-            <input type="text" id="debug" /> <button type="button" class="btn btn-primary" onclick="debug();">Push</button>
+            <input type="text" name="d" id="d" /> <button type="button" class="btn btn-primary" id="sendbutton" >Push</button>
           </div>
         </div>
 
@@ -55,21 +55,16 @@
 
       $( document ).ready(function() {
 
-        // Brightness
-        var brightnesChange = function() {
+        $("#sendbutton").click(function() {
+          $.ajax({
+            url: '/send_command/',
+            dataType: 'json',
+            data: {'instring': + $('#d').val()},
+            success: function(data) {
 
-           $.ajax({
-             url: '/send_command/',
-             dataType: 'json',
-             data: {'i':'w ' + brightness_val.getValue()},
-             success: function(data) {
-
-             },
-          });
-
-        };
-
-        var brightness_val = $('#brightness_ms').slider().on('slideStop', brightnessChange).data('slider');
+            },
+         });
+        });
 
       });
 

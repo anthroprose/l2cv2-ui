@@ -37,7 +37,7 @@
 
         <div class="col-md-0 patternbox">
           <div class="patternpic">
-            <input type="text" name="d" id="d" /> <button type="button" class="btn btn-primary" id="sendbutton" >Push</button>
+            <input type="text" name="d" id="d" /> <button type="button" class="btn btn-primary" id="sendbutton" onclick="sendButton();">Push</button>
           </div>
         </div>
 
@@ -53,20 +53,18 @@
 
     <script>
 
-      $( document ).ready(function() {
+      function sendButton() {
 
-        $("#sendbutton").click(function() {
-          $.ajax({
-            url: '/send_command/',
-            dataType: 'json',
-            data: {'instring': + $('#d').val()},
-            success: function(data) {
+        $.ajax({
+          url: '/send_command/',
+          dataType: 'json',
+          data: {'instring': + $("#d").val()},
+          success: function(data) {
 
-            },
-         });
+          },
         });
 
-      });
+      }
 
     </script>
   </body>

@@ -236,7 +236,6 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Run</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -282,7 +281,6 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Run</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -328,7 +326,6 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Run</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -364,11 +361,46 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Run</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+    <!-- Frequency Modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="frequencyModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Frequency</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-0 patternbox">
+                <div class="row">
+                  <div class="col-md-2">&nbsp;</div>
+                  <div class="col-md-2">Frequency:</div>
+                  <div class="col-md-2"><input type="text" id="frequency" data-provide="slider" data-slider-min="5" data-slider-max="1000" data-slider-step="1" data-slider-value="1" data-slider-tooltip="hide" data-slider-on/></div>
+                </div>
+              </div>
+
+              <div class="col-md-0 patternbox">
+                <div class="row">
+                  <div class="col-md-0">
+                    <div id="colorpicker"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
 
     <!-- ForeGround Modal -->
     <div class="modal fade" tabindex="-1" role="dialog" id="foreground2Modal">
@@ -410,7 +442,6 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Run</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -544,6 +575,22 @@
         };
 
         var brightness_val = $('#brightness_ms').slider().on('slideStop', brightnessChange).data('slider');
+
+        // Brightness
+        var frequencyChange = function() {
+
+           $.ajax({
+             url: '/send_command/',
+             dataType: 'json',
+             data: {'instring':'r ' + frequency_val.getValue()},
+             success: function(data) {
+
+             },
+          });
+
+        };
+
+        var frequency_val = $('#frequency').slider().on('slideStop', frequencyChange).data('slider');
 
       });
 
